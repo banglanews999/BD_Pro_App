@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unlock Link Page</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #121212;
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+    }
+    .container {
+      background-color: #1e1e1e;
+      border-radius: 8px;
+      padding: 24px;
+      width: 320px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+      margin-bottom: 20px;
+    }
+    .container h1 {
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+    .container p.subtitle {
+      color: #bbbbbb;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+    .social-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: #ffffff;
+      font-size: 16px;
+      padding: 12px;
+      border-radius: 4px;
+      margin-bottom: 12px;
+      transition: background-color 0.2s ease;
+      position: relative;
+    }
+    .btn-youtube { background-color: #FF0000; }
+    .btn-facebook { background-color: #3b5998; }
+    .btn-tiktok { background: linear-gradient(45deg, #FE2C55, #25F4EE); }
+    .btn-youtube:hover { background-color: #cc0000; }
+    .btn-facebook:hover { background-color: #2d4373; }
+    .btn-tiktok:hover { background: linear-gradient(45deg, #D32A4A, #1BBBD8); }
+    .progress-container {
+      background-color: #333333;
+      border-radius: 4px;
+      overflow: hidden;
+      margin: 16px 0 24px;
+      height: 8px;
+    }
+    .progress-bar {
+      width: 0%;
+      height: 100%;
+      background-color: #4caf50;
+      transition: width 0.3s ease;
+    }
+    .unlock-btn {
+      background-color: #555555;
+      color: #cccccc;
+      border: none;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 4px;
+      width: 100%;
+      cursor: not-allowed;
+    }
+    .unlock-btn.enabled {
+      background-color: #4caf50;
+      color: #ffffff;
+      cursor: pointer;
+    }
+    .ads-container {
+      margin: 20px 0;
+      text-align: center;
+    }
+    .ads-container .ad {
+      margin: 10px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="ads-container">
+    <!-- Ad 1 -->
+    <div class="ad">
+      <script type='text/javascript' src='//pl26639962.profitableratecpm.com/4b/62/ec/4b62ec1e5d974cce6d4bf2b2e6066802.js'></script>
+    </div>
+    <!-- Ad 2 -->
+    <div class="ad">
+      <script type="text/javascript">
+        atOptions = {
+          'key': '7794ca3a49231eb9f1212ca66c3761d0',
+          'format': 'iframe',
+          'height': 50,
+          'width': 320,
+          'params': {}
+        };
+      </script>
+      <script type="text/javascript" src="//www.highperformanceformat.com/7794ca3a49231eb9f1212ca66c3761d0/invoke.js"></script>
+    </div>
+  </div>  
+  <div class="container">
+    <h1>Unlock Link</h1>
+    <p class="subtitle">Complete the actions and unlock the link</p>
+    <a href="https://youtube.com/@its.me.sharafat.official?si=LR2RpR8J_MLnJx98" target="_blank" rel="noopener noreferrer" class="social-btn btn-youtube">
+      Subscribe on YouTube
+    </a>
+    <a href="https://www.facebook.com/share/1L12XzayrZ/" target="_blank" rel="noopener noreferrer" class="social-btn btn-facebook">
+      Follow on Facebook
+    </a>
+    <a href="https://www.tiktok.com/@its.me.sharafat.official" target="_blank" rel="noopener noreferrer" class="social-btn btn-tiktok">
+      Follow on TikTok
+    </a>
+
+    <div class="progress-container">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+    <p id="progressText">Unlock progress 0/3</p>
+    <button class="unlock-btn" id="unlockBtn" disabled>Unlock Link</button>
+  </div>  
+
+  <script>
+    let completedTasks = { youtube: false, facebook: false, tiktok: false };
+
+    // লোকাল স্টোরেজ থেকে লোড করুন
+    function loadProgress() {
+      const saved = localStorage.getItem('completedTasks');
+      if (saved) {
+        completedTasks = JSON.parse(saved);
+      }
+      updateProgress();
+    }
+
+    // লোকাল স্টোরেজে সেভ করুন
+    function saveProgress() {
+      localStorage.setItem('completedTasks', JSON.stringify(completedTasks));
+    }
+
+    function updateProgress() {
+      const progressBar = document.getElementById('progressBar');
+      const progressText = document.getElementById('progressText');
+      const unlockBtn = document.getElementById('unlockBtn');
+      const totalTasks = Object.values(completedTasks).filter(Boolean).length;
+      progressBar.style.width = (totalTasks / 3) * 100 + '%';
+      progressText.textContent = `Unlock progress ${totalTasks}/3`;
+      if (totalTasks === 3) {
+        unlockBtn.disabled = false;
+        unlockBtn.classList.add('enabled');
+      } else {
+        unlockBtn.disabled = true;
+        unlockBtn.classList.remove('enabled');
+      }
+    }
+
+    document.querySelectorAll('.social-btn').forEach((btn, index) => {
+      btn.addEventListener('click', () => {
+        const keys = Object.keys(completedTasks);
+        completedTasks[keys[index]] = true;
+        saveProgress();
+        updateProgress();
+      });
+    });
+
+    document.getElementById('unlockBtn').addEventListener('click', () => {
+      window.location.href = 'https://drive.google.com/file/d/1-VmwO1HTUX84NvoF9C8zTcUtvicxqVo3/view?usp=drivesdk';
+    });
+
+    // পেজ লোড হওয়ার সাথে সাথে লোকাল স্টোরেজ থেকে ডেটা লোড করা
+    window.addEventListener('load', loadProgress);
+  </script>
+</body>
+</html>
